@@ -1,35 +1,41 @@
+#!/usr/bin/env groovy
+
+@Libriary('jenkins-shared-libriary')
+def gv
+
 pipeline {
     agent any
-    tools {
-        maven 'maven-3.6'  // Maven tool configuration
-    }
     stages {
-        stage('build jar') {
+        stage("init") {
             steps {
                 script {
-                    echo "Building JAR..."
-                    sh 'mvn package'
+                    gv = load "script.groovy"
                 }
             }
         }
-        stage('build image') {  // Исправлено название stage
+        stage("build jar") {
             steps {
                 script {
-                    echo "Building Docker image..."
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-cr', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'docker build -t denchikkarate/demo-app:jma-2.0 .'
-                        sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh 'docker push denchikkarate/demo-app:jma-2.0'
-                    }
+                    echo "building jar"
+                    buildJar()   #from shared libriary VARS
                 }
             }
         }
-        stage('deploy') {
+        stage("build image") {
             steps {
                 script {
-                    echo "Deploying the application..."
+                    echo "building image"
+                    buildImage()    #from shared libriary VARS
                 }
             }
         }
-    }
+        stage("deploy") {
+            steps {
+                script {
+                    echo "deploying"
+                    gv.deployApp()
+                }
+            }
+        }
+    }   
 }
