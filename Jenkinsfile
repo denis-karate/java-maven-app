@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     echo "building jar"
-                    buildJar()   #from shared libriary VARS
+                    buildJar()   // from shared libriary VARS
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     echo "building image"
-                    buildImage()    #from shared libriary VARS
+                    buildImage()    // from shared libriary VARS
                 }
             }
         }
