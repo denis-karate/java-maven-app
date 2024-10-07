@@ -28,7 +28,8 @@ pipeline {
             steps {
                 script {
                     echo "building image"
-                    buildImage() 'denchikkarate/demo-app:jma-3.0'    // from shared libriary VARS
+                    buildImage('denchikkarate/demo-app:jma-3.0')
+                    // buildImage() 'denchikkarate/demo-app:jma-3.0'    // from shared libriary VARS
                 }
             }
         }
