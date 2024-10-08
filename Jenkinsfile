@@ -10,7 +10,7 @@ pipeline {
                 }
             }
         }
-        stage("build jar") {
+        stage("build jar prod") {
             steps {
                 script {
                     echo "building jar"
@@ -18,7 +18,7 @@ pipeline {
                 }
             }
         }
-        stage("build image") {
+        stage("build image prod") {
             steps {
                 script {
                     echo "building image"
@@ -26,7 +26,7 @@ pipeline {
                 }
             }
         }
-        stage("deploy") {
+        stage("deploy prod") {
             steps {
                 script {
                     echo "deploying"
