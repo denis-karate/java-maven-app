@@ -2,36 +2,46 @@
 
 pipeline {
     agent any
+
     tools {
         maven 'maven-3.6'
     }
-    libraries {
-        library identifier: 'jenkins-shared-library@master', 
-            retriever: modernSCM([
-                $class: 'GitSCMSource',
-                remote: 'https://github.com/denis-karate/jenkins-shared-library.git',
-                credentialsId: 'github-credentials'
-            ])
-    }
-    enviroment {
+
+    environment {  
         IMAGE_NAME = 'denchikkarate/demo-app:jma-aws'
     }
+
     stages {
-        stage("build jar") {
+        stage("Load Libraries") {
             steps {
                 script {
-                    buildJar()
+                    library identifier: 'jenkins-shared-library@master',
+                        retriever: modernSCM([
+                            $class: 'GitSCMSource',
+                            remote: 'https://github.com/denis-karate/jenkins-shared-library.git',
+                            credentialsId: 'github-credentials'
+                        ])
                 }
             }
         }
-        stage("build image") {
+
+        stage("Build JAR") {
             steps {
                 script {
-                    buildImage(env.IMAGE_NAME)
+                    buildJar()  
                 }
             }
         }
-        stage("deploy") {
+
+        stage("Build Image") {
+            steps {
+                script {
+                    buildImage(env.IMAGE_NAME)  
+                }
+            }
+        }
+
+        stage("Deploy") {
             steps {
                 script {
                     def dockerCmd = 'docker run -d -p 8887:8080 denchikkarate/demo-app:jma-2.0'
@@ -41,5 +51,6 @@ pipeline {
                 }
             }
         }
-    }   
+    }
 }
+
