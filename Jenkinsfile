@@ -1,19 +1,33 @@
-def gv
+#!/usr/bin/env groovy
 
 pipeline {
     agent any
+    tools {
+        maven 'maven-3.6'
+    }
+    libraries {
+        library identifier: 'jenkins-shared-library@master', 
+            retriever: modernSCM([
+                $class: 'GitSCMSource',
+                remote: 'https://github.com/denis-karate/jenkins-shared-library.git',
+                credentialsId: 'github-credentials'
+            ])
+    }
+    enviroment {
+        IMAGE_NAME = 'denchikkarate/demo-app:jma-aws'
+    }
     stages {
-        stage("build jar prod") {
+        stage("build jar") {
             steps {
                 script {
-                    echo "building jar"
+                    buildJar()
                 }
             }
         }
-        stage("build image prod") {
+        stage("build image") {
             steps {
                 script {
-                    echo "building image"
+                    buildImage(env.IMAGE_NAME)
                 }
             }
         }
