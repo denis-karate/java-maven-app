@@ -22,7 +22,7 @@ pipeline {
                 script {
                     def dockerCmd = 'docker run -p 8888:8080 denchikkarate/demo-app:jma-1.0'
                     sshagent(['deniswork-key-server1']) {
-                        sh "ssh -o StrictHostKeyChecking=no deniswork@192.168.100.7 ${dockerCMd}"
+                        sh "ssh -o StrictHostKeyChecking=no deniswork@192.168.100.7 ${dockerCmd}"
                     }
                 }
             }
