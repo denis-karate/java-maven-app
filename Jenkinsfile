@@ -44,7 +44,7 @@ pipeline {
         stage("Deploy") {
             steps {
                 script {
-                    def dockerCmd = 'docker run -d -p 8887:8080 denchikkarate/demo-app:jma-2.0'
+                    def dockerCmd = "docker run -d -p 8887:8080 ${IMAGE_NAME}"
                     sshagent(['deniswork-key-server1']) {
                         sh "ssh -o StrictHostKeyChecking=no deniswork@192.168.100.7 ${dockerCmd}"
                     }
