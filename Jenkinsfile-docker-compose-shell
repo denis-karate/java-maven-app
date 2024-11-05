@@ -25,7 +25,6 @@ pipeline {
             }
         }
         
-        stage
         stage("Build JAR") {
             steps {
                 script {
