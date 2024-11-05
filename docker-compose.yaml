@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     java-maven-app:
-      image: denchikkarate/demo-app:jma-aws
+      image: ${IMAGE}
       ports:
         - 8085:8080
     postgres:

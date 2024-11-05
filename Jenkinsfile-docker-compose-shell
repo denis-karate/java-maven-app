@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     sshagent(['deniswork-key-server1']) {
-                        def shellCmd = "bash /home/deniswork/Desktop/server-cmds.sh"
+                        def shellCmd = "bash /home/deniswork/Desktop/server-cmds.sh ${IMAGE_NAME}"
                         sh "scp server-cmds.sh deniswork@192.168.100.7:/home/deniswork/Desktop"
                         sh "scp docker-compose.yaml deniswork@192.168.100.7:/home/deniswork/Desktop"
                         sh "ssh -o StrictHostKeyChecking=no deniswork@192.168.100.7 ${shellCmd}"
