@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     def dockerCmd = "docker run -d -p 8887:8080 ${IMAGE_NAME}"
-                    def dockerComposeCmd = "docker-compose -f /home/deniswork/Desktop/docker-compose up -d"
+                    def dockerComposeCmd = "docker-compose -f /home/deniswork/Desktop/docker-compose.yaml up -d"
                     sshagent(['deniswork-key-server1']) {
                         sh "scp docker-compose.yaml deniswork@192.168.100.7:/home/deniswork/Desktop"
                         sh "ssh -o StrictHostKeyChecking=no deniswork@192.168.100.7 ${dockerComposeCmd}"
