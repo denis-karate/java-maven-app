@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {  
-        IMAGE_NAME = 'denchikkarate/demo-app:jma-aws'
+        IMAGE_NAME = 'denchikkarate/demo-app:jma-aws-test'
     }
 
     stages {
@@ -24,7 +24,8 @@ pipeline {
                 }
             }
         }
-
+        
+        stage
         stage("Build JAR") {
             steps {
                 script {
